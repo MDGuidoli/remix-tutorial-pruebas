@@ -1,3 +1,4 @@
+import "@mantine/core/styles.css"
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -13,7 +14,8 @@ import {
     useNavigation,
     useSubmit,
 } from "@remix-run/react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 import { createEmptyContact, getContacts } from "./data";
 import appStylesHref from "./app.css?url";
@@ -36,7 +38,7 @@ export const loader = async ({
   return json({ contacts, q });
 };
 
-export default function App() {
+export default function App({ children }: { children: React.ReactNode}) {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const submit = useSubmit();
@@ -60,6 +62,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <ColorSchemeScript />
       </head>
       <body>
         <div id="sidebar">
@@ -138,6 +141,7 @@ export default function App() {
         >
           <Outlet />
         </div>
+        <MantineProvider>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
