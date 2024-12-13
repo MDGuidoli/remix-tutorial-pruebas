@@ -33,69 +33,69 @@ export const loader = async ({
 };
 
 export default function Contact() {
-    const { contact } = useLoaderData<typeof loader>(); 
+  const { contact } = useLoaderData<typeof loader>(); 
 
   return (
-    <Card shadow="sm" padding="lg" style={{ maxWidth: 400, margin: 'auto' }}>
-      <Card.Section>
-        <Avatar 
-          src={contact.avatar}
-          alt={`${contact.first} ${contact.last} avatar`}
-          size={120}
-          radius="xl"
-        />
-      </Card.Section>
-      <Group pos="absolute" style={{ marginTop: '10px' }}>
-        <Text>
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
-          <Favorite contact={contact} />
-        </Text>
-      </Group>
-
-      {contact.twitter && (
-        <Text size="sm" color="dimmed">
-          <a
-            href={`https://twitter.com/${contact.twitter}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            @{contact.twitter}
-          </a>
-        </Text>
-      )}
-
-      {contact.notes && <Text size="sm" color="dimmed" style={{ marginTop: 10 }}>{contact.notes}</Text>}
-      
-      <Group>
-        <Form action="edit">
-          <Button variant="light" color="blue" size="sm" type="submit">
-            Edit
-          </Button>
-        </Form>
-
-        <Form
-          action="destroy"
-          method="post"
-          onSubmit={(event) => {
-            const response = confirm(
-              "Please confirm you want to delete this record."
-            );
-            if (!response) {
-              event.preventDefault();
-            }
-          }}
-        >
-          <Button variant="light" color="red" size="sm" type="submit">
-            Delete
-          </Button>
-        </Form>
-      </Group>
+    <Card>
+	    <Group>
+		    <Avatar 
+			    src={contact.avatar}
+			    alt={`${contact.first} ${contact.last} avatar`}
+			    size="xl"
+		    />
+		
+		    <Group>
+			    <Text>
+				    {contact.first || contact.last ? (
+					    <>
+						    {contact.first} {contact.last}
+					    </>
+				    ) : (
+					    <i>No Name</i>
+				    )}{" "}
+				    <Favorite contact={contact} />
+			    </Text>
+		    </Group>
+		
+		    {contact.twitter && (
+			    <Text size="sm">
+				    <a
+					    href={`https://twitter.com/${contact.twitter}`}
+					    target="_blank"
+					    rel="noopener noreferrer"
+				    >
+					    {contact.twitter}
+				    </a>
+			    </Text>
+		    )}
+		
+		    {contact.notes && <Text size="sm">{contact.notes}</Text>}
+		
+		    <Group>
+			    <Form action="edit">
+				    <Button justify="center" variant="filled" color="blue" size="md">
+					    Edit
+				    </Button>
+			    </Form>
+			
+			    <Form
+				    action="destroy"
+				    method="post"
+				    onSubmit={(event) => {
+					    const response = confirm(
+						    "Please confirm you want to delete this record."
+					    );
+					    if (!response) {
+						    event.preventDefault();
+					    }
+				    }}
+			    >
+				    <Button justify="center" variant="filled" color="red" size="md">
+					    Delete
+				    </Button>
+			    </Form>
+		    </Group>
+	    </Group>
     </Card>
   );
 }
