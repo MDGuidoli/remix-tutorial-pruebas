@@ -3,7 +3,7 @@ import { Form, useFetcher, useLoaderData } from "@remix-run/react";
 import type { FunctionComponent } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
-import { Card, Text, Group, Button, Avatar } from "@mantine/core"
+import { Card, Text, Group, Button, Avatar, Stack, Image } from "@mantine/core"
 
 import invariant from "tiny-invariant";
 
@@ -38,15 +38,15 @@ export default function Contact() {
   return (
     <Card>
 	    <Group gap="md">
-		    <Avatar 
+		    <Image 
 			    src={contact.avatar}
 			    alt={`${contact.first} ${contact.last} avatar`}
-			    size="xl"
+			    radius="md"
 		    />
 
-        <Card>
+        <Stack justify="center" gap="md">
           <Group gap="md">
-            <Text>
+            <Text size="xl" fw={700}>
               {contact.first || contact.last ? (
                 <>
                   {contact.first} {contact.last}
@@ -75,7 +75,7 @@ export default function Contact() {
 
           <Group gap="md">
             <Form action="edit">
-              <Button justify="center" variant="filled" color="blue" size="md">
+              <Button type="submit" justify="center" variant="filled" color="blue" size="md">
                 Edit
               </Button>
             </Form>
@@ -92,12 +92,12 @@ export default function Contact() {
                 }
               }}
             >
-              <Button justify="center" variant="default" color="red" size="md">
+              <Button type="submit" justify="center" variant="default" color="red" size="md">
                 Delete
               </Button>
             </Form>
           </Group>
-        </Card>
+        </Stack>
 	    </Group>
     </Card>
   );
